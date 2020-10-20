@@ -1,4 +1,4 @@
-const myName = 'tflin'
+const myName: string = 'tflin'
 
 console.log(myName)
 

@@ -1,5 +1,5 @@
-const myName: string = 'tflin'
+import TFullPage from './instance'
+import './style/base.scss'
 
-console.log(myName)
-
-// export default myName
+const tFullPage = new TFullPage()
+tFullPage.init()

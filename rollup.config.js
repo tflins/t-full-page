@@ -2,6 +2,9 @@
 
 import typescript from 'rollup-plugin-typescript'
 import sourceMaps from 'rollup-plugin-sourcemaps'
+import serve from 'rollup-plugin-serve'
+
+import livereload from 'rollup-plugin-livereload'
 
 export default {
   input: './src/index.ts',
@@ -10,7 +13,14 @@ export default {
       exclude: 'node_modules/**',
       typescript: require('typescript')
     }),
-    sourceMaps()
+    sourceMaps(),
+    livereload(),
+    serve({
+      open: true,
+      openPage: '/public/index.html',
+      port: 3000,
+      contentBase: ''
+    })
   ],
   output: [
     {

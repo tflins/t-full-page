@@ -5,6 +5,7 @@ import sourceMaps from 'rollup-plugin-sourcemaps'
 import serve from 'rollup-plugin-serve'
 
 import livereload from 'rollup-plugin-livereload'
+import scss from 'rollup-plugin-scss'
 
 export default {
   input: './src/index.ts',
@@ -15,6 +16,7 @@ export default {
     }),
     sourceMaps(),
     livereload(),
+    scss(),
     serve({
       open: true,
       openPage: '/public/index.html',

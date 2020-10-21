@@ -6,6 +6,7 @@ import serve from 'rollup-plugin-serve'
 
 import livereload from 'rollup-plugin-livereload'
 import scss from 'rollup-plugin-scss'
+import { uglify } from 'rollup-plugin-uglify'
 
 export default {
   input: './src/index.ts',
@@ -17,6 +18,7 @@ export default {
     sourceMaps(),
     livereload(),
     scss(),
+    uglify(),
     serve({
       open: true,
       openPage: '/public/index.html',

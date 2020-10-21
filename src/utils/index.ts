@@ -1,6 +1,6 @@
-export const $ = (selector: string, scope = document): HTMLElement => scope.querySelector(selector)
+export const $ = (selector: string, scope: HTMLElement | Document = document): HTMLElement => scope.querySelector(selector)
 
-export const $$ = (selector: string, scope = document): NodeListOf<Element> => scope.querySelectorAll(selector)
+export const $$ = (selector: string, scope: HTMLElement | Document = document): NodeListOf<Element> => scope.querySelectorAll(selector)
 
 // 获取滚轮方向
 export const getWheelDelta = (event: WheelEvent): number => event.deltaY

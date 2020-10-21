@@ -8,11 +8,17 @@ export default class TFullPage {
   viewHeight: number
   // 当前定位高度
   curPosition: number
+  // 当前定位
+  curIndex: number
+  // 滚动总页数
+  pageCount: number
 
   constructor() {
     this.$container = $('.t-full-page')
     this.viewHeight = document.documentElement.clientHeight
     this.curPosition = 0
+    this.curIndex = 0
+    this.pageCount = $$('.page', this.$container).length
     this.init()
   }
 
@@ -30,16 +36,20 @@ export default class TFullPage {
 
   // 向下翻页
   down(): void {
+    if (this.curIndex <= 0) return
     console.log('向下滚动')
     this.curPosition += this.viewHeight
     this.turnPage(this.curPosition)
+    this.curIndex --
   }
 
   // 向上翻页
   up(): void {
+    if (this.curIndex >= this.pageCount - 1) return
     console.log('向上滚动')
     this.curPosition -= this.viewHeight
     this.turnPage(this.curPosition)
+    this.curIndex ++
   }
 
   // 翻页

@@ -3,15 +3,15 @@ import { $, $$, getWheelDelta, throttle } from '../utils'
 export default class TFullPage {
 
   // 滚动容器
-  $container: HTMLElement
+  readonly $container: HTMLElement
   // 视口高度
-  viewHeight: number
+  readonly viewHeight: number
   // 当前定位高度
   curPosition: number
   // 当前定位
   curIndex: number
   // 滚动总页数
-  pageCount: number
+  readonly pageCount: number
 
   constructor() {
     this.$container = $('.t-full-page')
@@ -23,19 +23,19 @@ export default class TFullPage {
   }
 
   // 初始化
-  init(): void {
+  private init(): void {
     this.$container.style.height = `${this.viewHeight}px`
     this.bindEvt()
   }
 
   // 绑定事件
-  bindEvt(): void {
+  private bindEvt(): void {
     const handleWheel: any = throttle(this.scrollMouse, this, 1000)
     document.addEventListener('wheel', handleWheel)
   }
 
   // 向下翻页
-  down(): void {
+  private down(): void {
     if (this.curIndex <= 0) return
     console.log('向下滚动')
     this.curPosition += this.viewHeight
@@ -44,7 +44,7 @@ export default class TFullPage {
   }
 
   // 向上翻页
-  up(): void {
+  private up(): void {
     if (this.curIndex >= this.pageCount - 1) return
     console.log('向上滚动')
     this.curPosition -= this.viewHeight
@@ -53,12 +53,12 @@ export default class TFullPage {
   }
 
   // 翻页
-  turnPage(height: number): void {
+  private turnPage(height: number): void {
     this.$container.style.top = `${height}px`
   }
 
   // 鼠标滚动时
-  scrollMouse(event: WheelEvent): void {
+  private scrollMouse(event: WheelEvent): void {
     const delta: number = getWheelDelta(event)
     if (delta > 0) this.up()
     else this.down()

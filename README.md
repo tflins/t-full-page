@@ -1,6 +1,6 @@
-# t-full-scroll
+# t-full-page
 
-造轮子之 TypeScript 编写 的 full-scroll 插件
+造轮子之 TypeScript 编写 的 full-page 插件
 
 使用 Rollup 构建
 

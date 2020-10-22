@@ -10,6 +10,16 @@ import { uglify } from 'rollup-plugin-uglify'
 
 export default {
   input: './src/index.ts',
+
+  output: [
+    {
+      format: 'umd',
+      file: 'lib/bundle.umd.js',
+      name: 'TFullPage',
+      sourcemap: true
+    }
+  ],
+
   plugins: [
     typescript({
       exclude: 'node_modules/**',
@@ -18,20 +28,12 @@ export default {
     sourceMaps(),
     livereload(),
     scss(),
-    // uglify(),
+    uglify(),
     serve({
       open: true,
       openPage: '/public/index.html',
       port: 3000,
       contentBase: ''
     })
-  ],
-  output: [
-    {
-      format: 'umd',
-      file: 'lib/bundle.umd.js',
-      name: 'TFullPage',
-      sourcemap: true
-    }
   ]
 }

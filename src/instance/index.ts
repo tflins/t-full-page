@@ -6,12 +6,14 @@ export default class TFullPage {
   readonly $container: HTMLElement
   // 视口高度
   readonly viewHeight: number
+  // 滚动总页数
+  readonly pageCount: number
   // 当前定位高度
   curPosition: number
   // 当前定位
   curIndex: number
-  // 滚动总页数
-  readonly pageCount: number
+  // 是否处于滚动的过程中
+  isScrolling: boolean = false
 
   constructor() {
     this.$container = $('.t-full-page')
@@ -40,7 +42,7 @@ export default class TFullPage {
     console.log('向下滚动')
     this.curPosition += this.viewHeight
     this.turnPage(this.curPosition)
-    this.curIndex --
+    this.curIndex--
   }
 
   // 向上翻页
@@ -49,16 +51,22 @@ export default class TFullPage {
     console.log('向上滚动')
     this.curPosition -= this.viewHeight
     this.turnPage(this.curPosition)
-    this.curIndex ++
+    this.curIndex++
   }
 
   // 翻页
   private turnPage(height: number): void {
+    this.isScrolling = true
     this.$container.style.top = `${height}px`
+
+    setTimeout(() => {
+      this.isScrolling = false
+    }, 1000)
   }
 
   // 鼠标滚动时
   private scrollMouse(event: WheelEvent): void {
+    if (this.isScrolling) return
     const delta: number = getWheelDelta(event)
     if (delta > 0) this.up()
     else this.down()

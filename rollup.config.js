@@ -18,7 +18,7 @@ export default {
     sourceMaps(),
     livereload(),
     scss(),
-    uglify(),
+    // uglify(),
     serve({
       open: true,
       openPage: '/public/index.html',
@@ -28,13 +28,9 @@ export default {
   ],
   output: [
     {
-      format: 'cjs',
-      file: 'lib/bundle.cjs.js',
-      sourcemap: true
-    },
-    {
-      format: 'es',
-      file: 'lib/bundle.esm.js',
+      format: 'umd',
+      file: 'lib/bundle.umd.js',
+      name: 'TFullPage',
       sourcemap: true
     }
   ]

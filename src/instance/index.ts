@@ -2,30 +2,36 @@ import { $, $$, getWheelDelta, throttle, addClass, removeClass, hasClass } from 
 
 // 动画时长
 const ANIMATION_TIME: number = 1000
+// 容器 class
+const CON_CLS: string = 't-full-page'
+// 单页 class
+const PAGE_CLS: string = 'page'
+// 导航按钮激活 class
+const ACT_CLS: string = 'active'
 
 export default class TFullPage {
 
   // 滚动容器
-  readonly $container: HTMLElement
+  private readonly $container: HTMLElement
   // 视口高度
-  readonly viewHeight: number
+  private readonly viewHeight: number
   // 滚动总页数
-  readonly pageCount: number
+  private readonly pageCount: number
   // 导航按钮
-  readonly $navBtns: HTMLElement[] = []
+  private readonly $navBtns: HTMLElement[] = []
   // 当前定位高度
-  curPosition: number
+  private curPosition: number
   // 当前定位索引
-  curIndex: number
+  private curIndex: number
   // 是否处于滚动的过程中
-  isScrolling: boolean = false
+  private isScrolling: boolean = false
 
   constructor() {
-    this.$container = $('.t-full-page')
+    this.$container = $(`.${CON_CLS}`)
     this.viewHeight = document.documentElement.clientHeight
+    this.pageCount = $$(`.${PAGE_CLS}`, this.$container).length
     this.curPosition = 0
     this.curIndex = 0
-    this.pageCount = $$('.page', this.$container).length
     this.init()
   }
 
@@ -93,7 +99,7 @@ export default class TFullPage {
       $navUl.appendChild($navItem)
     }
 
-    addClass(this.$navBtns[0], 'active')
+    addClass(this.$navBtns[0], ACT_CLS)
 
     $nav.appendChild($navUl)
     this.$container.appendChild($nav)
@@ -104,8 +110,8 @@ export default class TFullPage {
 
   // 设置当前激活按钮
   private setCurActiveBtn(index: number): void {
-    this.$navBtns.forEach($navItem => removeClass($navItem, 'active'))
-    addClass(this.$navBtns[index], 'active')
+    this.$navBtns.forEach($navItem => removeClass($navItem, ACT_CLS))
+    addClass(this.$navBtns[index], ACT_CLS)
   }
 
   // 点击导航按钮

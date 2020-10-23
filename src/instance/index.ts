@@ -48,7 +48,7 @@ export default class TFullPage {
     document.addEventListener('wheel', handleWheel)
   }
 
-  // 向下翻页
+  // 向下滚动
   private down(): void {
     if (this.curIndex <= 0) return
     console.log('向下滚动')
@@ -56,7 +56,7 @@ export default class TFullPage {
     this.goToPage(this.curIndex)
   }
 
-  // 向上翻页
+  // 向上滚动
   private up(): void {
     if (this.curIndex >= this.pageCount - 1) return
     console.log('向上滚动')
@@ -122,5 +122,15 @@ export default class TFullPage {
       this.goToPage(this.curIndex)
     }
     event.stopPropagation()
+  }
+
+  // 对外暴露的代理方法 下一页
+  public nextPage(): void {
+    this.up()
+  }
+
+  // 对外暴露的代理方法 上一页
+  public prevPage(): void {
+    this.down()
   }
 }

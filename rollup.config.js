@@ -1,12 +1,10 @@
-// ./`rollup.config.js`
-
 import typescript from 'rollup-plugin-typescript'
 import sourceMaps from 'rollup-plugin-sourcemaps'
 import serve from 'rollup-plugin-serve'
 
 import livereload from 'rollup-plugin-livereload'
 import scss from 'rollup-plugin-scss'
-import { uglify } from 'rollup-plugin-uglify'
+import { terser } from 'rollup-plugin-terser'
 
 export default {
   input: './src/index.ts',
@@ -28,7 +26,7 @@ export default {
     sourceMaps(),
     livereload(),
     scss(),
-    uglify(),
+    terser(),
     serve({
       open: true,
       openPage: '/public/index.html',

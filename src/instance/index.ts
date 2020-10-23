@@ -1,4 +1,4 @@
-import { $, $$, getWheelDelta, throttle, addClass } from '../utils'
+import { $, $$, getWheelDelta, throttle, addClass, removeClass } from '../utils'
 
 export default class TFullPage {
 
@@ -15,7 +15,7 @@ export default class TFullPage {
   // 是否处于滚动的过程中
   isScrolling: boolean = false
   // 导航按钮
-  $navBtns: HTMLElement
+  $navBtns: HTMLElement[] = []
 
   constructor() {
     this.$container = $('.t-full-page')
@@ -44,8 +44,8 @@ export default class TFullPage {
     if (this.curIndex <= 0) return
     console.log('向下滚动')
     this.curPosition += this.viewHeight
-    this.turnPage(this.curPosition)
     this.curIndex--
+    this.turnPage(this.curPosition)
   }
 
   // 向上翻页
@@ -53,17 +53,17 @@ export default class TFullPage {
     if (this.curIndex >= this.pageCount - 1) return
     console.log('向上滚动')
     this.curPosition -= this.viewHeight
-    this.turnPage(this.curPosition)
     this.curIndex++
+    this.turnPage(this.curPosition)
   }
 
   // 翻页
   private turnPage(height: number): void {
     this.isScrolling = true
     this.$container.style.top = `${height}px`
-    
+    this.setCurActiveBtn(this.curIndex)
 
-    setTimeout(() => {
+    setTimeout((): void => {
       this.isScrolling = false
     }, 1000)
   }
@@ -84,10 +84,22 @@ export default class TFullPage {
     addClass($nav, 't-full-page__nav')
 
     for (let i: number = 0; i < this.pageCount; i++) {
-      $navUl.innerHTML += `<li class="nav-list-item"></li>`
+      const $navItem: HTMLElement = document.createElement('li')
+      addClass($navItem, 'nav-list-item')
+      this.$navBtns.push($navItem)
+      $navUl.appendChild($navItem)
     }
+
+    addClass(this.$navBtns[0], 'active')
 
     $nav.appendChild($navUl)
     this.$container.appendChild($nav)
+  }
+
+  // 设置当前激活按钮
+  private setCurActiveBtn(index: number): void {
+    this.$navBtns.forEach($navItem => removeClass($navItem, 'active'))
+    addClass(this.$navBtns[index], 'active')
+
   }
 }

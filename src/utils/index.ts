@@ -1,3 +1,7 @@
+const trim = (str: string): string => {
+  return (str || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
+}
+
 export const $ = (selector: string, scope: HTMLElement | Document = document): HTMLElement => scope.querySelector(selector)
 
 export const $$ = (selector: string, scope: HTMLElement | Document = document): NodeListOf<Element> => scope.querySelectorAll(selector)
@@ -52,3 +56,23 @@ export const addClass = (el: HTMLElement, cls: string): void => {
   }
 }
 
+// dom 删除 class
+export const removeClass = (el: HTMLElement, cls: string): void => {
+  if (!el || !cls) return
+  let classes: string[] = cls.split(' ')
+  let curClass: string = ' ' + el.className + ' '
+
+  for (let i: number = 0, j: number = classes.length; i < j; i++) {
+    let clsName: string = classes[i]
+    if (!clsName) continue
+
+    if (el.classList) {
+      el.classList.remove(clsName)
+    } else if (hasClass(el, clsName)) {
+      curClass = curClass.replace(' ' + clsName + ' ', ' ')
+    }
+  }
+  if (!el.classList) {
+    el.className = trim(curClass)
+  }
+}

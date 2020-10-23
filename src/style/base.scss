@@ -12,4 +12,32 @@ html, body {
   .page {
     height: 100%;
   }
+
+  &__nav {
+    position: fixed;
+    top: 50%;
+    right: 10px;
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      &-item {
+        width: 15px;
+        height: 15px;
+        background-color: #000;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &:not(:last-child) {
+          margin-bottom: 10px;
+        }
+
+        &.active {
+          background-color: #fff;
+        }
+      }
+    }
+  }
 }

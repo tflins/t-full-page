@@ -19,3 +19,36 @@ export const throttle = (fn: Function, content: Object, delay: number = 1000): F
   }
 }
 
+// dom 是否有 class
+export const hasClass = (el: HTMLElement, cls: string): boolean => {
+  if (!el || !cls) return false
+  if (cls.indexOf(' ') !== -1)
+    throw new Error('className should not contain space.')
+  if (el.classList) {
+    return el.classList.contains(cls)
+  } else {
+    return (' ' + el.className + ' ').indexOf(' ' + cls + ' ') > -1
+  }
+}
+
+// 给 dom 添加 class
+export const addClass = (el: HTMLElement, cls: string): void => {
+  if (!el) return
+  let curClass: string = el.className
+  let classes: string[] = (cls || '').split(' ')
+
+  for (let i = 0, j = classes.length; i < j; i++) {
+    let clsName: string = classes[i]
+    if (!clsName) continue
+
+    if (el.classList) {
+      el.classList.add(clsName)
+    } else if (!hasClass(el, clsName)) {
+      curClass += ' ' + clsName
+    }
+  }
+  if (!el.classList) {
+    el.className = curClass
+  }
+}
+

@@ -1,4 +1,4 @@
-import { $, $$, getWheelDelta, throttle } from '../utils'
+import { $, $$, getWheelDelta, throttle, addClass } from '../utils'
 
 export default class TFullPage {
 
@@ -14,6 +14,8 @@ export default class TFullPage {
   curIndex: number
   // 是否处于滚动的过程中
   isScrolling: boolean = false
+  // 导航按钮
+  $navBtns: HTMLElement
 
   constructor() {
     this.$container = $('.t-full-page')
@@ -28,6 +30,7 @@ export default class TFullPage {
   private init(): void {
     this.$container.style.height = `${this.viewHeight}px`
     this.bindEvt()
+    this.createNavBtn()
   }
 
   // 绑定事件
@@ -58,6 +61,7 @@ export default class TFullPage {
   private turnPage(height: number): void {
     this.isScrolling = true
     this.$container.style.top = `${height}px`
+    
 
     setTimeout(() => {
       this.isScrolling = false
@@ -70,5 +74,20 @@ export default class TFullPage {
     const delta: number = getWheelDelta(event)
     if (delta > 0) this.up()
     else this.down()
+  }
+
+  // 创建导航按钮
+  private createNavBtn(): void {
+    const $nav: HTMLElement = document.createElement('div')
+    const $navUl: HTMLElement = document.createElement('ul')
+    addClass($navUl, 'nav-list')
+    addClass($nav, 't-full-page__nav')
+
+    for (let i: number = 0; i < this.pageCount; i++) {
+      $navUl.innerHTML += `<li class="nav-list-item"></li>`
+    }
+
+    $nav.appendChild($navUl)
+    this.$container.appendChild($nav)
   }
 }

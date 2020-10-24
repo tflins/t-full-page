@@ -11,6 +11,8 @@
 - 适配 PC、移动端
 - 文件体积极小，Gzip 压缩后仅 1kb 大小
 
+![iShot2020-10-24 19.40.18.gif](http://ww1.sinaimg.cn/large/006iQgpIgy1gk0nrhx3hcg305c03gwfl.gif)
+
 ## 起步
 
 ### 安装依赖

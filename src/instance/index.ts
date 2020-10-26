@@ -13,14 +13,14 @@ export default class TFullPage {
 
   // 滚动容器
   private readonly $container: HTMLElement
-  // 视口高度
-  private readonly viewHeight: number
   // 滚动总页数
   private readonly pageCount: number
   // 导航按钮
   private readonly $navBtns: HTMLElement[] = []
   // 当前定位高度
   private curPosition: number
+  // 视口高度
+  private viewHeight: number
   // 当前定位索引
   private curIndex: number
   // 是否处于滚动的过程中
@@ -46,6 +46,9 @@ export default class TFullPage {
   private bindEvt(): void {
     const handleWheel: any = throttle(this.scrollMouse, this, 1000)
     document.addEventListener('wheel', handleWheel)
+    window.addEventListener('resize', e => {
+      this.onWindowResize(e)
+    })
   }
 
   // 向下滚动
@@ -122,6 +125,14 @@ export default class TFullPage {
       this.goToPage(this.curIndex)
     }
     event.stopPropagation()
+  }
+
+  // window resize
+  // TODO: 防抖
+  private onWindowResize(event: UIEvent): void {
+    this.viewHeight = document.documentElement.clientHeight
+    this.$container.style.height = `${this.viewHeight}px`
+    this.goToPage(this.curIndex)
   }
 
   // 对外暴露的代理方法 下一页

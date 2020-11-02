@@ -49,6 +49,15 @@ export default class TFullPage {
     window.addEventListener('resize', e => {
       this.onWindowResize(e)
     })
+    let startY: number = 0
+    document.addEventListener('touchstart', e => {
+      startY = e.touches[0].pageY
+    })
+    document.addEventListener('touchend', e => {
+      let endY: number = e.changedTouches[0].pageY
+      if (endY - startY < 0) this.up()
+      else this.down()
+    })
   }
 
   // 向下滚动

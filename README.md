@@ -33,6 +33,30 @@ npm run serve
 npm run build
 ```
 
+## 使用
+
+```html
+<div class="t-full-page">
+  <div class="page">
+    <div>内容 1</div>
+  </div>
+  <div class="page">
+    <div>内容 2</div>
+  </div>
+  <div class="page">
+    <div>内容 3</div>
+  </div>
+  <div class="page">
+    <div>内容 4</div>
+  </div>
+</div>
+
+<script src="../lib/bundle.umd.js"></script>
+<script>
+  new TFullPage()
+</script>
+```
+
 ## TODO
 
 - [x] 第一个可用版本

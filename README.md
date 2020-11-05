@@ -53,9 +53,16 @@ npm run build
 
 <script src="../lib/bundle.umd.js"></script>
 <script>
-  new TFullPage()
+  const tFullPage = new TFullPage()
 </script>
 ```
+
+## 方法
+
+| 示例方法 | 说明 |
+| ------- | ---- |
+| nextPage | 下一页 |
+| prevPage | 上一页 |
 
 ## TODO
 
